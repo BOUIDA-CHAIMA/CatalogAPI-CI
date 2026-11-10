@@ -1,32 +1,39 @@
 name: CatalogAPI CI Pipeline
+
 # Déclencheurs : exécution à chaque push ou pull request sur main
 on:
-push:
-branches: [ "main" ]
-pull_request:
-branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
-build-and-unit-tests:
-name: Build & Unit Tests
-runs-on: ubuntu-latest
-steps:
-# 1. Extraction du code source du dépôt
-- name: Checkout repository
-uses: actions/checkout@v4
-# 2. Configuration du SDK .NET
-- name: Setup .NET SDK
-uses: actions/setup-dotnet@v4
-with:
-dotnet-version: '8.0.x' # Adaptez selon la version .NET de votre projet
-# 3. Restauration des dépendances NuGet de la solution
-- name: Restore dependencies
-run: dotnet restore
-# 4. Compilation de la solution en mode Release sans re-restaurer
-- name: Build solution
-run: dotnet build --no-restore --configuration Release
-# 5. Exécution ciblée des tests unitaires uniquement
-- name: Run Unit Tests
-run: >
-dotnet test AppTests/AppTests.csproj
---no-build
---configuration Release
+  build-and-unit-tests:
+    name: Build & Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Extraction du code source du dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Configuration du SDK .NET (ton projet est en .NET 8)
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    # 3. Restauration des dépendances NuGet de la solution
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # 4. Compilation de la solution en mode Release sans re-restaurer
+    - name: Build solution
+      run: dotnet build --no-restore --configuration Release
+
+    # 5. Exécution ciblée des tests unitaires uniquement
+    - name: Run Unit Tests
+      run: >
+        dotnet test AppTests/AppTests.csproj
+        --no-build
+        --configuration Release
