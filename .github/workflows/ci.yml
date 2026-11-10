@@ -37,3 +37,4 @@ jobs:
         dotnet test AppTests/AppTests.csproj
         --no-build
         --configuration Release
+        --logger "console;verbosity=detailed"
