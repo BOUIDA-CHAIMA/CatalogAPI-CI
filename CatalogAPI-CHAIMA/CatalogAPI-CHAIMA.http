@@ -1,0 +1,6 @@
+@CatalogAPI_CHAIMA_HostAddress = http://localhost:5131
+
+GET {{CatalogAPI_CHAIMA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
